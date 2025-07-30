@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #3a86ff;
+            --secondary: #6c757d;
+            --dark: #212529;
+            --light: #f8f9fa;
+        }
+        
+        .dark {
+            --primary: #4dabf7;
+            --secondary: #adb5bd;
+            --dark: #f8f9fa;
+            --light: #212529;
+        }
+        
+        body {
+            transition: all 0.3s ease;
+            background-color: var(--light);
+            color: var(--dark);
+        }
+        
+        .text-primary {
+            color: var(--primary);
+        }
+        
+        .bg-primary {
+            background-color: var(--primary);
+        }
+        
+        .bg-secondary {
+            background-color: var(--secondary);
+        }
+        
+        .border-primary {
+            border-color: var(--primary);
+        }
+        
+        .project-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        .skill-bar {
+            transition: width 1.5s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .animate-fade-in {
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+        
+        .delay-100 {
+            animation-delay: 0.1s;
+        }
+        
+        .delay-200 {
+            animation-delay: 0.2s;
+        }
+        
+        .delay-300 {
+            animation-delay: 0.3s;
+        }
+    </style>
+</head>
+<body class="font-sans antialiased">
+    <!-- Navbar -->
+    <nav class="fixed w-full bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm z-50 shadow-sm">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <a href="#" class="text-2xl font-bold text-gray-800 dark:text-white">
+                <span class="text-primary">Port</span>folio
+            </a>
+            
+            <div class="flex items-center space-x-4">
+                <ul class="hidden md:flex space-x-8">
+                    <li><a href="#home" class="text-gray-800 dark:text-white hover:text-primary transition">Home</a></li>
+                    <li><a href="#projects" class="text-gray-800 dark:text-white hover:text-primary transition">Projects</a></li>
+                    <li><a href="#skills" class="text-gray-800 dark:text-white hover:text-primary transition">Skills</a></li>
+                    <li><a href="#testimonials" class="text-gray-800 dark:text-white hover:text-primary transition">Testimonials</a></li>
+                    <li><a href="#contact" class="text-gray-800 dark:text-white hover:text-primary transition">Contact</a></li>
+                </ul>
+                
+                <button id="theme-toggle" class="p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-white">
+                    <i id="theme-icon" class="fas fa-moon"></i>
+                </button>
+                
+                <button id="mobile-menu-button" class="md:hidden p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-white">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white dark:bg-gray-900">
+            <div class="container mx-auto px-6 py-4">
+                <ul class="flex flex-col space-y-4">
+                    <li><a href="#home" class="block text-gray-800 dark:text-white hover:text-primary transition">Home</a></li>
+                    <li><a href="#projects" class="block text-gray-800 dark:text-white hover:text-primary transition">Projects</a></li>
+                    <li><a href="#skills" class="block text-gray-800 dark:text-white hover:text-primary transition">Skills</a></li>
+                    <li><a href="#testimonials" class="block text-gray-800 dark:text-white hover:text-primary transition">Testimonials</a></li>
+                    <li><a href="#contact" class="block text-gray-800 dark:text-white hover:text-primary transition">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="pt-32 pb-16 md:pt-40 md:pb-24">
+        <div class="container mx-auto px-6 flex flex-col md:flex-row items-center">
+            <div class="md:w-1/2 mb-12 md:mb-0 animate-fade-in">
+                <h1 class="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
+                    Hi, I'm <span class="text-primary">Yanis Ardian</span>
+                </h1>
+                <h2 class="text-2xl md:text-3xl text-gray-700 dark:text-gray-300 mb-6">
+                    Full Stack Developer
+                </h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-8 max-w-lg">
+                    I create beautiful, functional websites and applications with modern technologies. Focused on user experience and clean code.
+                </p>
+                <div class="flex space-x-4">
+                    <a href="#projects" class="px-6 py-3 bg-primary text-white rounded-lg hover:bg-opacity-90 transition">
+                        View My Work
+                    </a>
+                    <a href="#contact" class="px-6 py-3 border-2 border-primary text-primary rounded-lg hover:bg-primary hover:text-white transition">
+                        Contact Me
+                    </a>
+                </div>
+            </div>
+            
+            <div class="md:w-1/2 flex justify-center animate-fade-in delay-100">
+                <div class="relative w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-4 border-primary shadow-xl">
+                    <img src="potoku.jpeg" alt="Professional portrait of Yanis ardian, a full stack developer in a business casual outfit smiling confidently against a modern office background" class="w-full h-full object-cover" />
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-16 bg-gray-100 dark:bg-gray-800">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16 animate-fade-in">
+                <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-2">My <span class="text-primary">Projects</span></h2>
+                <p class="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+                    Here are some of my recent works. Each project represents unique challenges and solutions.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Project 1 -->
+                <div class="bg-white dark:bg-gray-900 rounded-xl overflow-hidden shadow-md project-card animate-fade-in delay-100">
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/63950085-e336-47f2-a32c-f6482275cbb3.png" alt="E-commerce website dashboard showing analytics charts, product listings, and order management system with modern UI design" class="w-full h-full object-cover" />
+                        <div class="absolute inset-0 bg-gradient-to-t from-gray-900/70 to-transparent flex items-end p-4">
+                            <span class="bg-primary text-white text-sm px-3 py-1 rounded-full">React</span>
+                            <span class="bg-secondary text-white text-sm px-3 py-1 rounded-full ml-2">Node.js</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">E-Commerce Platform</h3>
+                        <p class="text-gray-600 dark:text-gray-400 mb-4">
+                            A full-featured e-commerce solution with inventory management, payment processing, and analytics.
+                        </p>
+                        <div class="flex justify-between">
+                            <a href="#" class="text-primary font-medium hover:underline">View Details</a>
+                            <a href="#" class="text-primary font-medium hover:underline">Live Demo</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 2 -->
+                <div class="bg-white dark:bg-gray-900 rounded-xl overflow-hidden shadow-md project-card animate-fade-in delay-200">
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/d14eb092-41eb-40ea-ac99-36214e01e093.png" alt="Mobile app interface for a task management application showing organized lists, progress charts, and team collaboration features" class="w-full h-full object-cover" />
+                        <div class="absolute inset-0 bg-gradient-to-t from-gray-900/70 to-transparent flex items-end p-4">
+                            <span class="bg-primary text-white text-sm px-3 py-1 rounded-full">Android Studio</span>
+                            <span class="bg-secondary text-white text-sm px-3 py-1 rounded-full ml-2">Java</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">Task Management App</h3>
+                        <p class="text-gray-600 dark:text-gray-400 mb-4">
+                            Cross-platform productivity app that helps teams organize and track their projects efficiently.
+                        </p>
+                        <div class="flex justify-between">
+                            <a href="#" class="text-primary font-medium hover:underline">View Details</a>
+                            <a href="#" class="text-primary font-medium hover:underline">Live Demo</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 3 -->
+                <div class="bg-white dark:bg-gray-900 rounded-xl overflow-hidden shadow-md project-card animate-fade-in delay-300">
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/bb71fdd5-803b-46a0-bb47-d1747e87f226.png" alt="Data visualization dashboard showing interactive maps, charts, and real-time analytics for business intelligence insights" class="w-full h-full object-cover" />
+                        <div class="absolute inset-0 bg-gradient-to-t from-gray-900/70 to-transparent flex items-end p-4">
+                            <span class="bg-primary text-white text-sm px-3 py-1 rounded-full">D3.js</span>
+                            <span class="bg-secondary text-white text-sm px-3 py-1 rounded-full ml-2">Python</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">Data Visualization Dashboard</h3>
+                        <p class="text-gray-600 dark:text-gray-400 mb-4">
+                            Interactive dashboard for analyzing complex datasets with real-time updates and custom reporting.
+                        </p>
+                        <div class="flex justify-between">
+                            <a href="#" class="text-primary font-medium hover:underline">View Details</a>
+                            <a href="#" class="text-primary font-medium hover:underline">Live Demo</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12 animate-fade-in delay-300">
+                <a href="projek.html" class="inline-block px-6 py-3 border-2 border-primary text-primary rounded-lg hover:bg-primary hover:text-white transition">
+                    View All Projects
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-16">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16 animate-fade-in">
+                <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-2">My <span class="text-primary">Skills</span></h2>
+                <p class="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+                    Here are the technologies and tools I work with on a regular basis.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+                <!-- Frontend Skills -->
+                <div class="bg-white dark:bg-gray-900 p-6 rounded-xl shadow-md animate-fade-in delay-100">
+                    <div class="flex items-center mb-4">
+                        <div class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center text-white mr-4">
+                            <i class="fas fa-laptop-code"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-gray-900 dark:text-white">Frontend</h3>
+                    </div>
+                    <ul class="space-y-2">
+                        <li>
+                            <div class="flex justify-between mb-1">
+                                <span class="text-gray-700 dark:text-gray-300">HTML/CSS</span>
+                                <span class="text-primary font-medium">95%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                                <div class="bg-primary h-2 rounded-full skill-bar" style="width: 95%"></div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="flex justify-between mb-1">
+                                <span class="text-gray-700 dark:text-gray-300">JavaScript</span>
+                                <span class="text-primary font-medium">90%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                                <div class="bg-primary h-2 rounded-full skill-bar" style="width: 90%"></div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="flex justify-between mb-1">
+                                <span class="text-gray-700 dark:text-gray-300">React</span>
+                                <span class="text-primary font-medium">85%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                                <div class="bg-primary h-2 rounded-full skill-bar" style="width: 85%"></div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="flex justify-between mb-1">
+                                <span class="text-gray-700 dark:text-gray-300">Vue.js</span>
+                                <span class="text-primary font-medium">80%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                                <div class="bg-primary h-2 rounded-full skill-bar" style="width: 80%"></div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Backend Skills -->
+                <div class="bg-white dark:bg-gray-900 p-6 rounded-xl shadow-md animate-fade-in delay-200">
+                    <div class="flex items-center mb-4">
+                        <div class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center text-white mr-4">
+                            <i class="fas fa-server"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-gray-900 dark:text-white">Backend</h3>
+                    </div>
+                    <ul class="space-y-2">
+                        <li>
+                            <div class="flex justify-between mb-1">
+                                <span class="text-gray-700 dark:text-gray-300">Node.js</span>
+                                <span class="text-primary font-medium">90%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                                <div class="bg-primary h-2 rounded-full skill-bar" style="width: 90%"></div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="flex justify-between mb-1">
+                                <span class="text-gray-700 dark:text-gray-300">Python</span>
+                                <span class="text-primary font-medium">85%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                                <div class="bg-primary h-2 rounded-full skill-bar" style="width: 85%"></div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="flex justify-between mb-1">
+                                <span class="text-gray-700 dark:text-gray-300">PHP</span>
+                                <span class="text-primary font-medium">75%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                                <div class="bg-primary h-2 rounded-full skill-bar" style="width: 75%"></div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="flex justify-between mb-1">
+                                <span class="text-gray-700 dark:text-gray-300">SQL</span>
+                                <span class="text-primary font-medium">80%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                                <div class="bg-primary h-2 rounded-full skill-bar" style="width: 80%"></div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Design Skills -->
+                <div class="bg-white dark:bg-gray-900 p-6 rounded-xl shadow-md animate-fade-in delay-300">
+                    <div class="flex items-center mb-4">
+                        <div class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center text-white mr-4">
+                            <i class="fas fa-paint-brush"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-gray-900 dark:text-white">Design</h3>
+                    </div>
+                    <ul class="space-y-2">
+                        <li>
+                            <div class="flex justify-between mb-1">
+                                <span class="text-gray-700 dark:text-gray-300">UI/UX</span>
+                                <span class="text-primary font-medium">85%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                                <div class="bg-primary h-2 rounded-full skill-bar" style="width: 85%"></div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="flex justify-between mb-1">
+                                <span class="text-gray-700 dark:text-gray-300">Figma</span>
+                                <span class="text-primary font-medium">90%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                                <div class="bg-primary h-2 rounded-full skill-bar" style="width: 90%"></div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="flex justify-between mb-1">
+                                <span class="text-gray-700 dark:text-gray-300">Adobe XD</span>
+                                <span class="text-primary font-medium">80%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                                <div class="bg-primary h-2 rounded-full skill-bar" style="width: 80%"></div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="flex justify-between mb-1">
+                                <span class="text-gray-700 dark:text-gray-300">Photoshop</span>
+                                <span class="text-primary font-medium">75%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                                <div class="bg-primary h-2 rounded-full skill-bar" style="width: 75%"></div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Other Skills -->
+                <div class="bg-white dark:bg-gray-900 p-6 rounded-xl shadow-md animate-fade-in delay-400">
+                    <div class="flex items-center mb-4">
+                        <div class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center text-white mr-4">
+                            <i class="fas fa-tools"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-gray-900 dark:text-white">Other</h3>
+                    </div>
+                    <ul class="space-y-2">
+                        <li>
+                            <div class="flex justify-between mb-1">
+                                <span class="text-gray-700 dark:text-gray-300">Git</span>
+                                <span class="text-primary font-medium">90%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                                <div class="bg-primary h-2 rounded-full skill-bar" style="width: 90%"></div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="flex justify-between mb-1">
+                                <span class="text-gray-700 dark:text-gray-300">Docker</span>
+                                <span class="text-primary font-medium">80%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                                <div class="bg-primary h-2 rounded-full skill-bar" style="width: 80%"></div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="flex justify-between mb-1">
+                                <span class="text-gray-700 dark:text-gray-300">AWS</span>
+                                <span class="text-primary font-medium">75%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                                <div class="bg-primary h-2 rounded-full skill-bar" style="width: 75%"></div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="flex justify-between mb-1">
+                                <span class="text-gray-700 dark:text-gray-300">CI/CD</span>
+                                <span class="text-primary font-medium">85%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                                <div class="bg-primary h-2 rounded-full skill-bar" style="width: 85%"></div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="py-16 bg-gray-100 dark:bg-gray-800">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16 animate-fade-in">
+                <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-2">Client <span class="text-primary">Testimonials</span></h2>
+                <p class="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+                    What people I've worked with say about my work.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Testimonial 1 -->
+                <div class="bg-white dark:bg-gray-900 p-8 rounded-xl shadow-md animate-fade-in delay-100">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 rounded-full overflow-hidden mr-4">
+                            <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/42ee3ff6-9bfe-4932-af8b-6802dc79fa8e.png" alt="Headshot of Sarah Johnson, a senior product manager with short brown hair and glasses, smiling confidently" class="w-full h-full object-cover" />
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-gray-900 dark:text-white">Sarah Johnson</h4>
+                            <p class="text-gray-600 dark:text-gray-400 text-sm">Product Manager, TechCorp</p>
+                        </div>
+                    </div>
+                    <div class="text-gray-700 dark:text-gray-300 mb-4 italic">
+                        "Working with John was an absolute pleasure. He delivered our e-commerce platform ahead of schedule and was always responsive to feedback. The attention to detail in the UI design exceeded our expectations."
+                    </div>
+                    <div class="flex space-x-1">
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                    </div>
+                </div>
+                
+                <!-- Testimonial 2 -->
+                <div class="bg-white dark:bg-gray-900 p-8 rounded-xl shadow-md animate-fade-in delay-200">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 rounded-full overflow-hidden mr-4">
+                            <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/a0737b33-5930-415e-a657-ed99b4aaa968.png" alt="Portrait of Michael Chen, a startup founder with a beard wearing a casual blazer, looking thoughtful" class="w-full h-full object-cover" />
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-gray-900 dark:text-white">Michael Chen</h4>
+                            <p class="text-gray-600 dark:text-gray-400 text-sm">Founder, StartUpX</p>
+                        </div>
+                    </div>
+                    <div class="text-gray-700 dark:text-gray-300 mb-4 italic">
+                        "John's technical skills are matched only by his professionalism. He took our vague ideas and transformed them into a polished product that perfectly fits our needs. His ability to explain complex technical concepts in simple terms was invaluable."
+                    </div>
+                    <div class="flex space-x-1">
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star-half-alt text-yellow-400"></i>
+                    </div>
+                </div>
+                
+                <!-- Testimonial 3 -->
+                <div class="bg-white dark:bg-gray-900 p-8 rounded-xl shadow-md animate-fade-in delay-300">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 rounded-full overflow-hidden mr-4">
+                            <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/87768d95-525c-4246-9c21-5e1bdb05a360.png" alt="Professional photo of Emily Rodriguez, a marketing director with long black hair in a business suit, smiling warmly" class="w-full h-full object-cover" />
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-gray-900 dark:text-white">Emily Rodriguez</h4>
+                            <p class="text-gray-600 dark:text-gray-400 text-sm">Marketing Director, InnovateCo</p>
+                        </div>
+                    </div>
+                    <div class="text-gray-700 dark:text-gray-300 mb-4 italic">
+                        "The dashboard John created for our analytics team has revolutionized how we track performance metrics. His ability to understand our business needs and translate them into technical solutions is remarkable. We'll definitely work with him again."
+                    </div>
+                    <div class="flex space-x-1">
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-16">
+    <div class="container mx-auto px-6">
+      <div class="max-w-4xl mx-auto">
+        <div class="text-center mb-16">
+          <h2 class="text-3xl font-bold text-gray-900 mb-2">Get In <span class="text-blue-600">Touch</span></h2>
+          <p class="text-gray-600 max-w-2xl mx-auto">
+            Have a project in mind or want to discuss potential opportunities? Feel free to reach out!
+          </p>
+        </div>
+
+        <form action="contact.php" method="POST" class="bg-white p-8 rounded-xl shadow-md">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <div>
+              <label for="name" class="block text-gray-700 mb-2">Your Name</label>
+              <input type="text" id="name" name="name" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring focus:ring-blue-300" placeholder="Yanis Ardian">
+            </div>
+            <div>
+              <label for="email" class="block text-gray-700 mb-2">Email Address</label>
+              <input type="email" id="email" name="email" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring focus:ring-blue-300" placeholder="ardian@example.com">
+            </div>
+          </div>
+          <div class="mb-6">
+            <label for="subject" class="block text-gray-700 mb-2">Subject</label>
+            <input type="text" id="subject" name="subject" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring focus:ring-blue-300" placeholder="Project Inquiry">
+          </div>
+          <div class="mb-6">
+            <label for="message" class="block text-gray-700 mb-2">Message</label>
+            <textarea id="message" name="message" rows="6" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring focus:ring-blue-300" placeholder="Tell me about your project..."></textarea>
+          </div>
+          <button type="submit" class="w-full md:w-auto px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
+            Send Message
+          </button>
+        </form>
+
+      </div>
+    </div>
+  </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-8 md:mb-0">
+                    <a href="#" class="text-2xl font-bold text-white">
+                        <span class="text-primary">Port</span>folio
+                    </a>
+                    <p class="text-gray-400 mt-2">Building digital experiences that matter.</p>
+                </div>
+                
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-400 hover:text-primary transition" aria-label="Twitter">
+                        <i class="fab fa-twitter text-xl"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-primary transition" aria-label="LinkedIn">
+                        <i class="fab fa-linkedin-in text-xl"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-primary transition" aria-label="Github">
+                        <i class="fab fa-github text-xl"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-primary transition" aria-label="Dribbble">
+                        <i class="fab fa-dribbble text-xl"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-400 mb-4 md:mb-0">© 2025 Yanis Ardian. All rights reserved.</p>
+                
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-400 hover:text-white transition">Privacy Policy</a>
+                    <a href="#" class="text-gray-400 hover:text-white transition">Terms of Service</a>
+                    <a href="#" class="text-gray-400 hover:text-white transition">Sitemap</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        // Theme Toggle
+        const themeToggle = document.getElementById('theme-toggle');
+        const themeIcon = document.getElementById('theme-icon');
+        
+        themeToggle.addEventListener('click', () => {
+            document.documentElement.classList.toggle('dark');
+            
+            if (document.documentElement.classList.contains('dark')) {
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+                localStorage.setItem('theme', 'light');
+            }
+        });
+        
+        // Check for saved theme preference
+        if (localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+            themeIcon.classList.remove('fa-moon');
+            themeIcon.classList.add('fa-sun');
+        } else {
+            document.documentElement.classList.remove('dark');
+            themeIcon.classList.remove('fa-sun');
+            themeIcon.classList.add('fa-moon');
+        }
+        
+        // Animate skill bars when they come into view
+        const skillBars = document.querySelectorAll('.skill-bar');
+        
+        const animateSkillBars = (entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const skillBar = entry.target;
+                    const width = skillBar.style.width;
+                    skillBar.style.width = '0';
+                    
+                    setTimeout(() => {
+                        skillBar.style.width = width;
+                    }, 100);
+                    
+                    observer.unobserve(skillBar);
+                }
+            });
+        };
+        
+        const observer = new IntersectionObserver(animateSkillBars, {
+            threshold: 0.1
+        });
+        
+        skillBars.forEach(bar => {
+            observer.observe(bar);
+        });
+        
+        // Form submission
+         const contactForm = document.getElementById('contactForm');
+
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const formData = new URLSearchParams(new FormData(contactForm));
+
+            fetch('contact.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: formData.toString()
+            })
+            .then(res => res.text())
+            .then(data => {
+                alert('Thank you for your message!');
+                contactForm.reset();
+            })
+            .catch(err => {
+                alert('There was an error sending your message.');
+                console.error(err);
+            });
+        });
+    </script>
+</body>
+</html>
+
